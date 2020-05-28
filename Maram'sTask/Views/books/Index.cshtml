@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Maram_sTask.Models.book>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Books</h2>
+
+<p>
+    @Html.ActionLink("Add new book", "Create")
+</p>
+<p>
+    @using (Html.BeginForm("Index", "books", FormMethod.Get))
+    {
+        <b>Search By: </b> @Html.RadioButton("SearchBy", "authorName", true) <text>Author Name</text>
+        @Html.RadioButton("SearchBy", "categoryName") <text>Category Name</text>
+        @Html.TextBox("searchValue", null, new { @class = "search-input", @placeholder = "Search here ..." })
+        <input type="submit" , value="Search" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.bookName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PublicationYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.author.authorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.category.categroyName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.bookName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PublicationYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.author.authorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.category.categroyName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
+        </td>
+    </tr>
+}
+
+</table>
